@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "677203652155",
+    "firebase_url": "https://saladin-f4f02.firebaseio.com",
+    "project_id": "saladin-f4f02",
+    "storage_bucket": "saladin-f4f02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677203652155:android:37c8aefd2f2c0bcd8b361e",
+        "android_client_info": {
+          "package_name": "es.rufflecol.saladin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677203652155-9cjnij87o8tufkpm8vgp3e4dq90l6ail.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRsdNVHkem-xNUQiYUz0VcQydXy0mTM98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677203652155-9cjnij87o8tufkpm8vgp3e4dq90l6ail.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

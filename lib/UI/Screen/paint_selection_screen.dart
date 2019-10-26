@@ -37,3 +37,4 @@ class PaintSelectionState extends State<PaintSelectionWidget> {
     ]));
   }
 }
+

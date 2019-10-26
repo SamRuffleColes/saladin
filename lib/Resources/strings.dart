@@ -13,6 +13,14 @@ class Strings {
   static const String editGuideScreenTitle = "Edit Guide";
   static const String nameLabel = "name";
   static const String nameValidationError = "Name field cannot be empty";
+  static const String uploadingGuide = "Your guide is now uploading...";
+  static const String errorUploadingGuide = "Something went wrong, please try again.";
+  static const String submitGuideValidationErrors = "There are validation errors, please review before saving.";
+  static const String selectImageFromDevice = "Select image from device";
+  static const String addNewStep = "Add Step";
+
+  //edit step screen
+  static const String editStepScreenTitle = "Edit Step";
 
   //paints screen
   static const String miniaturePaintsScreenTitle = "Paints";

@@ -26,7 +26,7 @@ class StepListState extends State<StepListWidget> {
     final GuideStep step = steps[index];
     return Card(
         key: ValueKey("value$index"),
-        child: ListTile(leading: Icon(Icons.local_pizza), title: Text(step.verb), subtitle: Text(step.notes)));
+        child: ListTile(leading: _leadingItem(step), title: Text(step.verb), subtitle: Text(step.notes)));
   }
 
   _reorderSteps(int oldIndex, int newIndex) {
@@ -35,5 +35,13 @@ class StepListState extends State<StepListWidget> {
     }
     final GuideStep item = steps.removeAt(oldIndex);
     steps.insert(newIndex, item);
+  }
+
+  Widget _leadingItem(GuideStep step) {
+    if (step.miniaturePaint != null) {
+      return Container(color: step.miniaturePaint.color, width: 25.0, height: 25.0);
+    } else {
+      return Icon(Icons.drag_handle);
+    }
   }
 }

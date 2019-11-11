@@ -21,6 +21,20 @@ class Strings {
 
   //edit step screen
   static const String editStepScreenTitle = "Edit Step";
+  static const String verbLabel = "Verb";
+  static const String notesLabel = "Notes";
+  static const String verbValidationError = "Verb field cannot be empty";
+  static const List<String> stepVerbs = [
+    "Drybrush",
+    "Highlight",
+    "Stipple",
+    "Glue",
+    "Varnish",
+    "Dry blend",
+    "Wet blend",
+    "Glaze"
+  ];
+  static const String other = "Other";
 
   //paints screen
   static const String miniaturePaintsScreenTitle = "Paints";
@@ -30,4 +44,5 @@ class Strings {
   static const String unknown = "Unknown";
   static const String ok = "OK";
   static const String save = "Save";
+  static const String change = "Change";
 }

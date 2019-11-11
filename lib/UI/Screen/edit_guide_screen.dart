@@ -19,6 +19,8 @@ class EditGuideScreen extends StatefulWidget {
 }
 
 class EditGuideState extends State<EditGuideScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final Auth auth = Auth();
   final _formKey = GlobalKey<FormState>();
   final _bloc = GuidesBloc();
@@ -27,20 +29,12 @@ class EditGuideState extends State<EditGuideScreen> {
   String _name = "";
   bool _isUploading = false;
 
-  final List<GuideStep> _steps = [
-    GuideStep("Basecoat", notes: "Basecoat the entire miniature in blue"),
-    GuideStep("Drybush", notes: "Gently drybrush the miniature's legs"),
-    GuideStep("Edge Highlight", notes: "Edge highlight the lot in light blue"),
-    GuideStep("Varnish", notes: "Use rattlecan spray varnish to cover the lot"),
-    GuideStep("Basecoat", notes: "Basecoat the entire miniature in blue"),
-    GuideStep("Drybush", notes: "Gently drybrush the miniature's legs"),
-    GuideStep("Edge Highlight", notes: "Edge highlight the lot in light blue"),
-    GuideStep("Varnish", notes: "Use rattlecan spray varnish to cover the lot")
-  ];
+  final List<GuideStep> _steps = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(Strings.editGuideScreenTitle),
           automaticallyImplyLeading: false,
@@ -58,15 +52,14 @@ class EditGuideState extends State<EditGuideScreen> {
               ? LoadingWidget(Strings.uploadingGuide)
               : Container(
                   padding: const EdgeInsets.all(Dimensions.largePadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFormField(
+                  child: _buildLayoutForOrientation(
+                      orientation: MediaQuery.of(context).orientation,
+                      nameTextFormField: TextFormField(
                           decoration: InputDecoration(
                               labelText: Strings.nameLabel, contentPadding: EdgeInsets.all(Dimensions.standardPadding)),
                           validator: (value) => value.isEmpty ? Strings.nameValidationError : null,
                           onSaved: (String value) => _name = value),
-                      Container(
+                      imageSelection: Container(
                           padding: const EdgeInsets.all(Dimensions.largePadding),
                           alignment: Alignment.center,
                           child: _image == null
@@ -79,9 +72,7 @@ class EditGuideState extends State<EditGuideScreen> {
                                           Column(children: [Icon(Icons.image), Text(Strings.selectImageFromDevice)])),
                                   onPressed: _selectImage)
                               : Image.file(_image, alignment: Alignment.center, fit: BoxFit.fitWidth)),
-                      Expanded(child: StepListWidget(_steps))
-                    ],
-                  )),
+                      stepListWidget: StepListWidget(_steps))),
         )));
   }
 
@@ -96,7 +87,7 @@ class EditGuideState extends State<EditGuideScreen> {
 
   _submit() {
     setState(() => _isUploading = true);
-    Guide guide = Guide(_name);
+    Guide guide = Guide(_name, steps: _steps);
     auth.currentUser().then((user) => _createGuide(user, guide));
   }
 
@@ -108,8 +99,8 @@ class EditGuideState extends State<EditGuideScreen> {
   }
 
   _onCreateGuideError() {
-    _toast(Strings.errorUploadingGuide);
     setState(() => _isUploading = false);
+    _toast(Strings.errorUploadingGuide);
   }
 
   Future _selectImage() async {
@@ -117,14 +108,35 @@ class EditGuideState extends State<EditGuideScreen> {
     setState(() => _image = image);
   }
 
-  _toast(String message) => Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
+  _toast(String message) => _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(message)));
+
+  Widget _buildLayoutForOrientation(
+      {Orientation orientation,
+      TextFormField nameTextFormField,
+      Widget imageSelection,
+      StepListWidget stepListWidget}) {
+    switch (orientation) {
+      case Orientation.landscape:
+        return Row(children: [
+          Expanded(child: Column(children: [nameTextFormField, Expanded(child: imageSelection)])),
+          Expanded(
+              child: Container(padding: const EdgeInsets.only(left: Dimensions.standardPadding), child: stepListWidget))
+        ]);
+      case Orientation.portrait:
+      default:
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [nameTextFormField, imageSelection, Expanded(child: stepListWidget)]);
+    }
+  }
 
   _addStep() async {
     final GuideStep step =
         await Navigator.of(context).push(MaterialPageRoute<GuideStep>(builder: (context) => EditStepScreen()));
 
     if (step != null) {
-      _steps.add(step);
+      print("${step.verb}, ${step.notes}");
+      setState(() => _steps.add(step));
     }
   }
 }

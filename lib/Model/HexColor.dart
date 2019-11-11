@@ -9,8 +9,9 @@ class HexColor extends Color {
     return int.parse(hexColor, radix: 16);
   }
 
+  String toHex() => "#${value.toRadixString(16).toUpperCase()}";
+
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 
   HexColor.white() : this("#FFFFFFFF");
-
 }

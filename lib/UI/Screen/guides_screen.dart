@@ -41,7 +41,7 @@ class GuidesListState extends State<GuidesListWidget> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           } else {
-            List<Guide> guides = snapshot.data;
+            final List<Guide> guides = snapshot.data;
             return ListView.separated(
                 itemBuilder: (context, index) {
                   Guide guide = guides[index];
@@ -54,9 +54,12 @@ class GuidesListState extends State<GuidesListWidget> {
                               height: 200,
                               fit: BoxFit.fitWidth,
                               placeholder: (context, url) => Container(
-                                  child: CircularProgressIndicator(), padding: EdgeInsets.all(Dimensions.largePadding)),
+                                  child: CircularProgressIndicator(),
+                                  padding: const EdgeInsets.all(Dimensions.largePadding)),
                               errorWidget: (context, url, error) => Icon(Icons.error)),
-                          Text("${guide.name}")
+                          Column(
+                            children: [Text("${guide.name}"), Text("${_aaa(guide.steps)}")],
+                          )
                         ],
                       ));
                 },
@@ -64,5 +67,18 @@ class GuidesListState extends State<GuidesListWidget> {
                 itemCount: guides.length);
           }
         });
+  }
+
+  String _aaa(List<GuideStep> steps) {
+    if (steps == null) {
+      return "null steps";
+    }
+    if (steps.isEmpty) {
+      return "empty steps";
+    }
+
+    return steps
+        .map((step) => "${step.verb} ${step.miniaturePaint?.name == null ? "" : step.miniaturePaint?.name}\n")
+        .reduce((value, element) => "$value $element");
   }
 }

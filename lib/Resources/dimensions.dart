@@ -3,4 +3,5 @@ class Dimensions {
   static const double standardPadding = 4.0;
   static const double largePadding = 12.0;
   static const double borderWidth = 0.25;
+  static const double buttonHeight = 64.0;
 }

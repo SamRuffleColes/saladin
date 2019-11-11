@@ -34,7 +34,7 @@ class PaintsGridWidget extends StatelessWidget {
             Set<String> manufacturers = miniaturePaints.map((mp) => mp.manufacturer).toSet();
 
             return Column(
-              children: <Widget>[
+              children: [
                 FilterChips(
                     filterLabels: manufacturers.toList(),
                     onFiltersChanged: (selectedManufacturers) => bloc.filterByManufacturer(selectedManufacturers)),

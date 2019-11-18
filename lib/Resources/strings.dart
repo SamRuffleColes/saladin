@@ -18,6 +18,9 @@ class Strings {
   static const String submitGuideValidationErrors = "There are validation errors, please review before saving.";
   static const String selectImageFromDevice = "Select image from device";
   static const String addNewStep = "Add Step";
+  static const String deleteConfirmationTitle = "Delete Guide";
+  static const String deleteConfirmationBody =
+      "Are you sure you want to delete this guide? This action can not be undone.";
 
   //edit step screen
   static const String editStepScreenTitle = "Edit Step";
@@ -45,4 +48,6 @@ class Strings {
   static const String ok = "OK";
   static const String save = "Save";
   static const String change = "Change";
+  static const String cancel = "Cancel";
+  static const String delete = "Delete";
 }

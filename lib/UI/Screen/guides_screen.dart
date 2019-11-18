@@ -35,6 +35,8 @@ class GuidesListState extends State<GuidesListWidget> {
     final bloc = GuidesBloc();
     auth.currentUser().then((user) => bloc.fetchAll(user));
 
+    final bool isPortraitOrientation = MediaQuery.of(context).orientation == Orientation.portrait;
+
     return StreamBuilder(
         stream: bloc.guidesStream,
         builder: (context, snapshot) {
@@ -42,43 +44,51 @@ class GuidesListState extends State<GuidesListWidget> {
             return Center(child: CircularProgressIndicator());
           } else {
             final List<Guide> guides = snapshot.data;
-            return ListView.separated(
-                itemBuilder: (context, index) {
-                  Guide guide = guides[index];
-                  return Container(
-                      padding: EdgeInsets.all(Dimensions.largePadding),
-                      child: Row(
-                        children: [
-                          CachedNetworkImage(
-                              imageUrl: guide.imageUrl,
-                              height: 200,
-                              fit: BoxFit.fitWidth,
-                              placeholder: (context, url) => Container(
-                                  child: CircularProgressIndicator(),
-                                  padding: const EdgeInsets.all(Dimensions.largePadding)),
-                              errorWidget: (context, url, error) => Icon(Icons.error)),
-                          Column(
-                            children: [Text("${guide.name}"), Text("${_aaa(guide.steps)}")],
-                          )
-                        ],
-                      ));
-                },
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: guides.length);
+            return Container(
+              padding: const EdgeInsets.all(Dimensions.standardPadding),
+              child: GridView.builder(
+                  itemCount: guides.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: isPortraitOrientation ? 2 : 3,
+                      crossAxisSpacing: Dimensions.standardPadding,
+                      mainAxisSpacing: Dimensions.standardPadding,
+                      childAspectRatio: isPortraitOrientation ? 1.0 : 1.3),
+                  itemBuilder: (BuildContext context, int index) {
+                    return _buildTile(guides[index]);
+                  }),
+            );
           }
         });
   }
 
-  String _aaa(List<GuideStep> steps) {
-    if (steps == null) {
-      return "null steps";
-    }
-    if (steps.isEmpty) {
-      return "empty steps";
-    }
+  Widget _buildTile(Guide guide) {
+    return GestureDetector(
+        child: GridTile(
+            footer: GridTileBar(
+              backgroundColor: Colors.black45,
+              title: Text(guide.name),
+              subtitle: Text("nice mini is nice"),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: guide.image.url,
+              fit: BoxFit.fill,
+              placeholder: (context, url) =>
+                  Container(child: CircularProgressIndicator(), padding: const EdgeInsets.all(Dimensions.largePadding)),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            )),
+        onTap: () =>
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGuideScreen(guide: guide))));
 
-    return steps
-        .map((step) => "${step.verb} ${step.miniaturePaint?.name == null ? "" : step.miniaturePaint?.name}\n")
-        .reduce((value, element) => "$value $element");
+//    return GridTile(
+//      footer: GridTileBar(
+//        backgroundColor: Colors.black45,
+//        title: Text(guide.name),
+//        subtitle: Text("nice mini is nice"),
+//      ),
+//      child: GestureDetector(
+//          child: Icon(Icons.edit, color: Colors.white),
+//          onTap: () =>
+//              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGuideScreen(guide: guide)))),
+//    );
   }
 }

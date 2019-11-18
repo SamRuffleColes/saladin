@@ -23,45 +23,91 @@ class GuidesBloc implements Bloc {
     QuerySnapshot querySnapshot =
         await _guidesCollection.where("userId", isEqualTo: user.uid).getDocuments(source: Source.serverAndCache);
 
-    List<Guide> guides = await Future.wait(querySnapshot.documents.map((doc) => _mapToGuide(doc.data)).toList());
+    List<Guide> guides = await Future.wait(querySnapshot.documents.map((doc) => _docToGuide(doc)).toList());
 
     _controller.sink.add(guides);
   }
 
-  Future<Guide> create(FirebaseUser user, File image, Guide guide) async {
-    String imageId = Uuid().v1();
+  Future<void> create(FirebaseUser user, File image, Guide guide) async {
+    String newImageId = "";
 
     if (image != null) {
-      StorageUploadTask uploadTask = FirebaseStorage.instance.ref().child(imageId).putFile(image);
+      newImageId = Uuid().v1();
+      StorageUploadTask uploadTask = FirebaseStorage.instance.ref().child(newImageId).putFile(image);
       await uploadTask.onComplete;
-      if (!uploadTask.isSuccessful) {
-        imageId = "";
+      if (uploadTask.isSuccessful) {
+        if (guide.image.id.isNotEmpty) {
+          Future<void> deleteTask = FirebaseStorage.instance.ref().child(guide.image.id).delete();
+          await deleteTask;
+        }
+      } else {
+        if (guide.image.id.isEmpty) {
+          newImageId = "";
+        }
       }
     }
 
-    return Firestore.instance.runTransaction((Transaction tx) async {
-      final DocumentSnapshot newDoc = await tx.get(_guidesCollection.document());
+    if (guide.id.isEmpty) {
+      //create new
+      return Firestore.instance.runTransaction((Transaction tx) async {
+        final DocumentSnapshot newDoc = await tx.get(_guidesCollection.document());
 
-      final Map<String, dynamic> data = {
-        "name": guide.name,
-        "userId": user.uid,
-        "imageId": imageId,
-        "steps": _stepsToMapList(guide.steps),
-        "created": new DateTime.now().toUtc().toIso8601String()
-      };
-      await tx.set(newDoc.reference, data);
-      return data;
-    }).then((data) => _mapToGuide(data));
+        final Map<String, dynamic> data = {
+          "name": guide.name,
+          "userId": user.uid,
+          "imageId": newImageId,
+          "steps": _stepsToMapList(guide.steps),
+          "documentVersion": 1,
+          "updated": new DateTime.now().toUtc().toIso8601String()
+        };
+        await tx.set(newDoc.reference, data);
+      });
+    } else {
+      //update existing
+      return Firestore.instance.runTransaction((Transaction tx) async {
+        final DocumentSnapshot docToUpdate = await tx.get(_guidesCollection.document(guide.id));
+
+        String imageId = "";
+        if (newImageId.isEmpty) {
+          if (guide.image.id.isNotEmpty) {
+            imageId = guide.image.id;
+          }
+        } else {
+          imageId = newImageId;
+        }
+
+        final Map<String, dynamic> data = {
+          "id": guide.id,
+          "name": guide.name,
+          "imageId": imageId,
+          "steps": _stepsToMapList(guide.steps),
+          "documentVersion": 1,
+          "updated": new DateTime.now().toUtc().toIso8601String()
+        };
+
+        await tx.update(docToUpdate.reference, data);
+      });
+    }
   }
 
-  Future<Guide> _mapToGuide(Map<String, dynamic> map) async {
-    String name = _thisOrUnknownIfNull(map["name"]);
+  Future<void> delete(FirebaseUser user, Guide guide) async {
+    if (guide.image.id.isNotEmpty) {
+      Future<void> deleteTask = FirebaseStorage.instance.ref().child(guide.image.id).delete();
+      await deleteTask;
+    }
 
-    List<GuideStep> steps = _thisOrEmptyListIfNull(map["steps"]);
+    return _guidesCollection.document(guide.id).delete().catchError((error) => Future.error(error));
+  }
 
-    String imageId = map["imageId"];
+  Future<Guide> _docToGuide(DocumentSnapshot doc) async {
+    String id = doc.documentID;
+    String name = _thisOrUnknownIfNull(doc.data["name"]);
+
+    List<GuideStep> steps = _thisOrEmptyListIfNull(doc.data["steps"]);
+
+    String imageId = doc.data["imageId"];
     if (imageId.isEmpty) {
-      return Guide(name, steps: steps);
+      return Guide(name: name, steps: steps);
     } else {
       String imageUrl = "";
       try {
@@ -69,7 +115,7 @@ class GuidesBloc implements Bloc {
       } catch (e) {
         print(e);
       }
-      return Guide(name, imageUrl: imageUrl, steps: steps);
+      return Guide(name: name, id: id, image: ImageData(imageId, imageUrl), steps: steps);
     }
   }
 

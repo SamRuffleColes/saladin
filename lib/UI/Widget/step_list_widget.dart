@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saladin/Model/guide.dart';
+import 'package:saladin/Resources/app_palette.dart';
 
 class StepListWidget extends StatefulWidget {
   final List<GuideStep> steps;
@@ -24,9 +25,17 @@ class StepListState extends State<StepListWidget> {
 
   Widget _listItem(int index) {
     final GuideStep step = steps[index];
-    return Card(
-        key: ValueKey("value$index"),
-        child: ListTile(leading: _leadingItem(step), title: Text(step.verb), subtitle: Text(step.notes)));
+    return Dismissible(
+      key: ObjectKey(step),
+      direction: DismissDirection.endToStart,
+      background: Container(
+          color: AppPalette.urgency,
+          child: const Center(child: ListTile(trailing: Icon(Icons.delete, color: Colors.white, size: 36.0)))),
+      onDismissed: (direction) => setState(() => steps.removeAt(index)),
+      child: Card(
+          key: ValueKey("value$index"),
+          child: ListTile(leading: _leadingItem(step), title: Text(step.verb), subtitle: Text(step.notes))),
+    );
   }
 
   _reorderSteps(int oldIndex, int newIndex) {

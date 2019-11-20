@@ -103,7 +103,7 @@ class EditGuideState extends State<EditGuideScreen> {
         .currentUser()
         .then((user) => _bloc.delete(user, guide))
         .then((_) => Navigator.of(context).pop())
-        .catchError((error) => print(error) /** TODO handle this error properly **/ );
+        .catchError((error) => print(error) /** TODO handle this error properly **/);
   }
 
   _onSavePressed() {

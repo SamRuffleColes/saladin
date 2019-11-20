@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saladin/BLoC/bloc_provider.dart';
 import 'package:saladin/BLoC/miniature_paints_bloc.dart';
 import 'package:saladin/Model/miniature_paint.dart';
 import 'package:saladin/Resources/dimensions.dart';
@@ -17,15 +16,16 @@ class MiniaturePaintsScreen extends StatelessWidget {
 }
 
 class PaintsGridWidget extends StatelessWidget {
+  MiniaturePaintsBloc _bloc = MiniaturePaintsBloc();
+
   @override
   Widget build(BuildContext context) {
     final bool isPortraitOrientation = MediaQuery.of(context).orientation == Orientation.portrait;
 
-    final bloc = BlocProvider.of<MiniaturePaintsBloc>(context);
-    bloc.fetchAll();
+    _bloc.fetchAll();
 
     return StreamBuilder(
-        stream: bloc.miniaturePaintsStream,
+        stream: _bloc.miniaturePaintsStream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
@@ -37,7 +37,7 @@ class PaintsGridWidget extends StatelessWidget {
               children: [
                 FilterChips(
                     filterLabels: manufacturers.toList(),
-                    onFiltersChanged: (selectedManufacturers) => bloc.filterByManufacturer(selectedManufacturers)),
+                    onFiltersChanged: (selectedManufacturers) => _bloc.filterByManufacturer(selectedManufacturers)),
                 Expanded(
                     child: SafeArea(
                         top: false,

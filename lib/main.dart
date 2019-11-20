@@ -1,22 +1,32 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:saladin/BLoC/bloc_provider.dart';
-import 'package:saladin/BLoC/miniature_paints_bloc.dart';
 import 'package:saladin/Resources/strings.dart';
-import 'package:saladin/UI/Screen/splash_screen.dart';
 
-void main() => runApp(MyApp());
+import 'UI/Screen/splash_screen.dart';
 
-class MyApp extends StatelessWidget {
+void main() {
+  initialiseCrashlytics();
+  runApp(SaladinApp());
+}
+
+void initialiseCrashlytics() {
+  Crashlytics.instance.enableInDevMode = true;
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+}
+
+class SaladinApp extends StatelessWidget {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MiniaturePaintsBloc>(
-        bloc: MiniaturePaintsBloc(),
-        child: MaterialApp(
-          title: Strings.appTitle,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: SplashScreenWidget(),
-        ));
+    return MaterialApp(
+        title: Strings.appTitle,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: SplashScreenWidget(),
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)]);
   }
 }

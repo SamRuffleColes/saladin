@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "677203652155-dchk9f8b8dml28fumns270gumg0llcug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.rufflecol.saladin",
+            "certificate_hash": "aa06cf4099c463008bd409a2528c5c0f4d309035"
+          }
+        },
+        {
           "client_id": "677203652155-9cjnij87o8tufkpm8vgp3e4dq90l6ail.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -30,6 +38,13 @@
             {
               "client_id": "677203652155-9cjnij87o8tufkpm8vgp3e4dq90l6ail.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "677203652155-4osdissel0cklju90kjvml7vt8q1793o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "es.rufflecol.saladin"
+              }
             }
           ]
         }

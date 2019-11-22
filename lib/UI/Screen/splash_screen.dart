@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:saladin/Auth/auth.dart';
 import 'package:saladin/Resources/dimensions.dart';
@@ -34,6 +35,9 @@ class SplashScreenState extends State<SplashScreenWidget> {
   }
 
   _checkIfAlreadySignedIn() {
+
+    Crashlytics.instance.crash();
+
     auth.currentUser().then((user) => _navigateToGuidesScreen()).catchError((e) => print(e));
   }
 

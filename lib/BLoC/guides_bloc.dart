@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:saladin/Model/HexColor.dart';
 import 'package:saladin/Model/guide.dart';
@@ -107,7 +108,7 @@ class GuidesBloc implements Bloc {
 
     String imageId = doc.data["imageId"];
     if (imageId.isEmpty) {
-      return Guide(name: name, steps: steps);
+      return Guide(name: name, id: id, steps: steps);
     } else {
       String imageUrl = "";
       try {

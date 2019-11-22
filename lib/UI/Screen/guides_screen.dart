@@ -78,17 +78,5 @@ class GuidesListState extends State<GuidesListWidget> {
             )),
         onTap: () =>
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGuideScreen(guide: guide))));
-
-//    return GridTile(
-//      footer: GridTileBar(
-//        backgroundColor: Colors.black45,
-//        title: Text(guide.name),
-//        subtitle: Text("nice mini is nice"),
-//      ),
-//      child: GestureDetector(
-//          child: Icon(Icons.edit, color: Colors.white),
-//          onTap: () =>
-//              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGuideScreen(guide: guide)))),
-//    );
   }
 }

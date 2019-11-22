@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -7,17 +9,16 @@ import 'package:saladin/Resources/strings.dart';
 import 'UI/Screen/splash_screen.dart';
 
 void main() {
-  initialiseCrashlytics();
-  runApp(SaladinApp());
-}
-
-void initialiseCrashlytics() {
   Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  runZoned<Future<void>>(() async {
+    runApp(SaladinApp());
+  }, onError: Crashlytics.instance.recordError);
 }
 
 class SaladinApp extends StatelessWidget {
-  FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,6 @@ class SaladinApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: SplashScreenWidget(),
-        navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)]);
+        navigatorObservers: [analyticsObserver]);
   }
 }

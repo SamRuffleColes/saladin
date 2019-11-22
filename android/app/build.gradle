@@ -41,7 +41,7 @@ android {
         applicationId "es.rufflecol.saladin"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode flutterVersionCode.toInteger()
+        versionCode System.getenv('APPCENTER_BUILD_ID').toInteger() == null ? flutterVersionCode.toInteger() : System.getenv('APPCENTER_BUILD_ID').toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

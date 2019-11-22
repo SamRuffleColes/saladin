@@ -12,7 +12,7 @@ cd ..
 
 git clone -b stable https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
-echo flutter.sdk=`pwd`/flutter >> ../local.properties
+echo flutter.sdk=`pwd`/flutter >> local.properties
 
 flutter channel stable
 flutter doctor

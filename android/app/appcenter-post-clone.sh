@@ -12,10 +12,12 @@ cd ..
 
 git clone -b stable https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
-echo flutter.sdk=`pwd`/flutter >> local.properties
 
 flutter channel stable
 flutter doctor
+
+echo "Installed flutter to `pwd`/flutter"
+
 flutter build apk --debug
 
 # copy the APK where AppCenter will find it

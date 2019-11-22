@@ -50,7 +50,7 @@ class SplashScreenState extends State<SplashScreenWidget> {
         context: context,
         builder: (context) => AlertDialog(
               title: Text(Strings.signInErrorTitle),
-              content: Text(e),
+              content: Text(e.toString()),
               actions: <Widget>[
                 FlatButton(
                   child: Text(Strings.ok),

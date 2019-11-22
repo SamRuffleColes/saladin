@@ -53,6 +53,22 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true
+            minifyEnabled false
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../stgdebug.keystore")
+            storePassword 'saladindebug'
+            keyAlias 'saladin'
+            keyPassword 'saladindebug'
+        }
+
+        //TODO add release signing config
     }
 }
 

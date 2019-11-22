@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # place this script in project/android/app/
+
+echo "running appcenter-post-clone.sh script"
+
 cd ..
 # fail if any command fails
 set -e

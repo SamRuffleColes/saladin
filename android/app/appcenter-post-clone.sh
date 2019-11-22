@@ -24,4 +24,4 @@ echo "Installed flutter to `pwd`/flutter"
 flutter build apk --debug
 
 # copy the APK where AppCenter will find it
-mkdir -p android/app/build/outputs/apk/; mv build/app/outputs/apk/release/app-debug.apk $_<
+mkdir -p android/app/build/outputs/apk/; mv build/app/outputs/apk/release/app-debug.apk $_

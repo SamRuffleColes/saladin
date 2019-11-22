@@ -8,17 +8,41 @@ import 'package:saladin/Resources/dimensions.dart';
 import 'package:saladin/Resources/strings.dart';
 import 'package:saladin/UI/Screen/edit_guide_screen.dart';
 
+enum OverflowOption { about, feedback, openSourceLicences }
+
 class GuidesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(Strings.guidesScreenTitle), automaticallyImplyLeading: false),
+        appBar: AppBar(title: Text(Strings.guidesScreenTitle), automaticallyImplyLeading: false, actions: [
+          PopupMenuButton<OverflowOption>(
+              onSelected: (option) => _overflowOptionSelected(context, option),
+              itemBuilder: (context) => <PopupMenuEntry<OverflowOption>>[
+                    const PopupMenuItem<OverflowOption>(value: OverflowOption.about, child: Text("About")),
+                    const PopupMenuItem<OverflowOption>(
+                        value: OverflowOption.openSourceLicences, child: Text("Open Source Licences"))
+                  ])
+        ]),
         body: Center(child: GuidesListWidget()),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGuideScreen())),
             label: Text(Strings.createNewGuide),
             icon: Icon(Icons.add),
             backgroundColor: AppPalette.accent));
+  }
+
+  _overflowOptionSelected(BuildContext context, OverflowOption option) {
+    switch (option) {
+      case OverflowOption.about:
+        //TODO: Handle this case.
+        break;
+      case OverflowOption.feedback:
+        //TODO launch email client with url_launcher that's just been added to pubspec.yaml
+        break;
+      case OverflowOption.openSourceLicences:
+        // TODO: Handle this case.
+        break;
+    }
   }
 }
 

@@ -5,6 +5,15 @@ class Strings {
   static const String googleSignIn = "Sign-in with Google";
   static const String signInErrorTitle = "Sign-in error";
 
+  //menu
+  static const String about = "About";
+  static const String feedback = "Feedback";
+
+  //about screen
+  static const String aboutBody = "This app was built using the finest hand-knitted computer code, by Sam and Lara Ruffle Coles.\n\nFeedback welcomed.";
+  static const String feedbackEmailAddress = "feedback@rufflecol.es";
+  static const String openSourceLicences = "Open Source Licence Information";
+
   //guides screen
   static const String guidesScreenTitle = "Guides Screen";
   static const String createNewGuide = "New Guide";

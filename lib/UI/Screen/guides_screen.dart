@@ -6,9 +6,11 @@ import 'package:saladin/Model/guide.dart';
 import 'package:saladin/Resources/app_palette.dart';
 import 'package:saladin/Resources/dimensions.dart';
 import 'package:saladin/Resources/strings.dart';
+import 'package:saladin/UI/Screen/about_screen.dart';
 import 'package:saladin/UI/Screen/edit_guide_screen.dart';
+import 'package:saladin/Web/url_launcher_utils.dart';
 
-enum OverflowOption { about, feedback, openSourceLicences }
+enum OverflowOption { about, feedback }
 
 class GuidesScreen extends StatelessWidget {
   @override
@@ -18,9 +20,8 @@ class GuidesScreen extends StatelessWidget {
           PopupMenuButton<OverflowOption>(
               onSelected: (option) => _overflowOptionSelected(context, option),
               itemBuilder: (context) => <PopupMenuEntry<OverflowOption>>[
-                    const PopupMenuItem<OverflowOption>(value: OverflowOption.about, child: Text("About")),
-                    const PopupMenuItem<OverflowOption>(
-                        value: OverflowOption.openSourceLicences, child: Text("Open Source Licences"))
+                    const PopupMenuItem<OverflowOption>(value: OverflowOption.about, child: Text(Strings.about)),
+                    const PopupMenuItem<OverflowOption>(value: OverflowOption.feedback, child: Text(Strings.feedback))
                   ])
         ]),
         body: Center(child: GuidesListWidget()),
@@ -34,13 +35,10 @@ class GuidesScreen extends StatelessWidget {
   _overflowOptionSelected(BuildContext context, OverflowOption option) {
     switch (option) {
       case OverflowOption.about:
-        //TODO: Handle this case.
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => AboutScreen()));
         break;
       case OverflowOption.feedback:
-        //TODO launch email client with url_launcher that's just been added to pubspec.yaml
-        break;
-      case OverflowOption.openSourceLicences:
-        // TODO: Handle this case.
+        launchFeedbackEmail();
         break;
     }
   }

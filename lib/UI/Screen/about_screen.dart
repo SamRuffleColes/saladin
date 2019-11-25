@@ -20,7 +20,7 @@ class AboutScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: Dimensions.largeSpacing),
                   child: Text(Strings.aboutBody, textAlign: TextAlign.center)),
               Container(
-                  padding: EdgeInsets.only(bottom: Dimensions.mediumSpacing),
+                  padding: EdgeInsets.only(bottom: Dimensions.smallSpacing),
                   child: InkWell(
                       child: Text(Strings.feedbackEmailAddress, style: TextStyle(color: AppPalette.hyperlink)),
                       onTap: () => launchFeedbackEmail())),

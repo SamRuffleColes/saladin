@@ -18,6 +18,10 @@ class Auth {
     return user;
   }
 
+  Future<void> signOut() {
+    return _auth.signOut();
+  }
+
   Future<FirebaseUser> currentUser() async {
     FirebaseUser currentUser = await _auth.currentUser();
     return currentUser == null ? Future.error("no user signed in") : currentUser;

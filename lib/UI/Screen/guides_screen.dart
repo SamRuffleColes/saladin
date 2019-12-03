@@ -8,9 +8,10 @@ import 'package:saladin/Resources/dimensions.dart';
 import 'package:saladin/Resources/strings.dart';
 import 'package:saladin/UI/Screen/about_screen.dart';
 import 'package:saladin/UI/Screen/edit_guide_screen.dart';
+import 'package:saladin/UI/Screen/splash_screen.dart';
 import 'package:saladin/Web/url_launcher_utils.dart';
 
-enum OverflowOption { about, feedback }
+enum OverflowOption { about, feedback, signOut }
 
 class GuidesScreen extends StatelessWidget {
   @override
@@ -21,7 +22,8 @@ class GuidesScreen extends StatelessWidget {
               onSelected: (option) => _overflowOptionSelected(context, option),
               itemBuilder: (context) => <PopupMenuEntry<OverflowOption>>[
                     const PopupMenuItem<OverflowOption>(value: OverflowOption.about, child: Text(Strings.about)),
-                    const PopupMenuItem<OverflowOption>(value: OverflowOption.feedback, child: Text(Strings.feedback))
+                    const PopupMenuItem<OverflowOption>(value: OverflowOption.feedback, child: Text(Strings.feedback)),
+                    const PopupMenuItem<OverflowOption>(value: OverflowOption.signOut, child: Text(Strings.signOut))
                   ])
         ]),
         body: Center(child: GuidesListWidget()),
@@ -39,6 +41,10 @@ class GuidesScreen extends StatelessWidget {
         break;
       case OverflowOption.feedback:
         launchFeedbackEmail();
+        break;
+      case OverflowOption.signOut:
+        Auth().signOut().then(
+            (_) => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SplashScreen())));
         break;
     }
   }

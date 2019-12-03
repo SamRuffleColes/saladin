@@ -27,7 +27,7 @@ class SaladinApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: SplashScreenWidget(),
+        home: SplashScreen(),
         navigatorObservers: [analyticsObserver]);
   }
 }

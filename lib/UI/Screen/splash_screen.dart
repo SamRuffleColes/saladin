@@ -4,12 +4,12 @@ import 'package:saladin/Resources/dimensions.dart';
 import 'package:saladin/Resources/strings.dart';
 import 'package:saladin/UI/Screen/guides_screen.dart';
 
-class SplashScreenWidget extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
   createState() => SplashScreenState();
 }
 
-class SplashScreenState extends State<SplashScreenWidget> {
+class SplashScreenState extends State<SplashScreen> {
   final Auth auth = Auth();
 
   @override

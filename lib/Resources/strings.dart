@@ -8,6 +8,7 @@ class Strings {
   //menu
   static const String about = "About";
   static const String feedback = "Feedback";
+  static const String signOut = "Sign Out";
 
   //about screen
   static const String aboutBody = "This app was built using the finest hand-knitted computer code, by Sam and Lara Ruffle Coles.\n\nFeedback welcomed.";

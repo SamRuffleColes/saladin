@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:saladin/Model/HexColor.dart';
 import 'package:saladin/Model/guide.dart';
@@ -147,13 +146,14 @@ class GuidesBloc implements Bloc {
     String name = _thisOrUnknownIfNull(miniaturePaintMap["name"]);
     String manufacturer = _thisOrUnknownIfNull(miniaturePaintMap["manufacturer"]);
     String range = _thisOrUnknownIfNull(miniaturePaintMap["range"]);
-    HexColor color = _thisOrWhiteIfNotColor(miniaturePaintMap["color"]);
-    return MiniaturePaint(name, manufacturer, range, color);
+    String sku = _thisOrEmptyIfNull(miniaturePaintMap["sku"]);
+    String color = _thisOrEmptyIfNull(miniaturePaintMap["color"]);
+    return MiniaturePaint(name, manufacturer, range, sku, color);
   }
 
-  HexColor _thisOrWhiteIfNotColor(dynamic field) {
-    if (field == null || !(field is String)) return HexColor.white();
-    return HexColor(field);
+  String _thisOrEmptyIfNull(dynamic field) {
+    if (field == null || !(field is String)) return "";
+    return field;
   }
 
   List<Map<String, dynamic>> _stepsToMapList(List<GuideStep> steps) => steps.map((step) {

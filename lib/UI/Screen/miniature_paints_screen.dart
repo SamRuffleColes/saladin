@@ -69,7 +69,15 @@ class PaintsGridWidget extends StatelessWidget {
             title: Text(miniaturePaint.name),
             subtitle: Text("${miniaturePaint.manufacturer} (${miniaturePaint.range})"),
           ),
-          child: Container(color: miniaturePaint.color),
+          child: _buildBackground(miniaturePaint),
         ));
+  }
+
+  Container _buildBackground(MiniaturePaint miniaturePaint) {
+    if (miniaturePaint.gradient != null) {
+      return Container(decoration: BoxDecoration(gradient: miniaturePaint.gradient));
+    } else {
+      return Container(color: miniaturePaint.color);
+    }
   }
 }

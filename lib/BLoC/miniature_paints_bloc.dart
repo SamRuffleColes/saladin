@@ -41,8 +41,10 @@ class MiniaturePaintsBloc implements Bloc {
     String name = _thisOrUnknownIfNull(doc.data["name"]);
     String manufacturer = _thisOrUnknownIfNull(doc.data["manufacturer"]);
     String range = _thisOrUnknownIfNull(doc.data["range"]);
-    HexColor color = _thisOrWhiteIfNotColor(doc.data["color"]);
-    return MiniaturePaint(name, manufacturer, range, color);
+    String sku = _thisOrEmptyIfNull(doc.data["sku"]);
+    String color = _thisOrEmptyIfNull(doc.data["color"]);
+
+    return MiniaturePaint(name, manufacturer, range, sku, color);
   }
 
   String _thisOrUnknownIfNull(dynamic field) {
@@ -50,9 +52,10 @@ class MiniaturePaintsBloc implements Bloc {
     return field;
   }
 
-  HexColor _thisOrWhiteIfNotColor(dynamic field) {
-    if (field == null || !(field is String)) return HexColor.white();
-    return HexColor(field);
+
+  String _thisOrEmptyIfNull(dynamic field) {
+    if (field == null || !(field is String)) return "";
+    return field;
   }
 
   @override

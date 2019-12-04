@@ -6,10 +6,12 @@ class MiniaturePaint {
   final String manufacturer;
   final String range;
   final String sku;
+  //refactor this, colorSourceString is a quick fix hack
+  final String colorSourceString;
   final HexColor color;
   final Gradient gradient;
 
-  MiniaturePaint._(this.name, this.manufacturer, this.range, this.sku, this.color, this.gradient);
+  MiniaturePaint._(this.name, this.manufacturer, this.range, this.sku, this.colorSourceString, this.color, this.gradient);
 
   factory MiniaturePaint(String name, String manufacturer, String range, String sku, String color) {
     HexColor hexColor;
@@ -18,7 +20,6 @@ class MiniaturePaint {
     if (color.startsWith("gradient")) {
       try {
         List<String> split = color.split("_");
-        print(split);
         Color colorOne = HexColor(split[1]);
         Color colorTwo = HexColor(split[2]);
         gradient = LinearGradient(
@@ -30,6 +31,11 @@ class MiniaturePaint {
       hexColor = HexColor(color);
     }
 
-    return MiniaturePaint._(name, manufacturer, range, sku, hexColor, gradient);
+    return MiniaturePaint._(name, manufacturer, range, sku, color, hexColor, gradient);
   }
+
+  String colorOrGradientToString() {
+    return colorSourceString;
+  }
+
 }

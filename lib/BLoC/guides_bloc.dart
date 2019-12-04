@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:saladin/Model/HexColor.dart';
 import 'package:saladin/Model/guide.dart';
 import 'package:saladin/Model/miniature_paint.dart';
 import 'package:saladin/Resources/strings.dart';
@@ -163,7 +162,7 @@ class GuidesBloc implements Bloc {
             "name": step.miniaturePaint.name,
             "manufacturer": step.miniaturePaint.manufacturer,
             "range": step.miniaturePaint.range,
-            "color": step.miniaturePaint.color.toHex()
+            "color": step.miniaturePaint.colorOrGradientToString()
           };
         }
         return map;

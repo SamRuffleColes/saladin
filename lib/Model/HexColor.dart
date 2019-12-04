@@ -7,12 +7,10 @@ class HexColor extends Color {
       hexColor = "FF" + hexColor;
     }
 
-    print(hexColor);
-
     return int.parse(hexColor, radix: 16);
   }
 
-  String toHex() => "#${value.toRadixString(16).toUpperCase()}";
+  String toHex() => value.toRadixString(16).toUpperCase();
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 

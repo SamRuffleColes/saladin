@@ -199,7 +199,6 @@ class EditGuideState extends State<EditGuideScreen> {
         await Navigator.of(context).push(MaterialPageRoute<GuideStep>(builder: (context) => EditStepScreen()));
 
     if (step != null) {
-      print("${step.verb}, ${step.notes}");
       setState(() => _guide.steps.add(step));
     }
   }

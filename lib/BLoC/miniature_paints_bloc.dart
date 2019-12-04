@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:saladin/Model/HexColor.dart';
 import 'package:saladin/Model/miniature_paint.dart';
 import 'package:saladin/Resources/strings.dart';
 
@@ -52,7 +51,6 @@ class MiniaturePaintsBloc implements Bloc {
     return field;
   }
 
-
   String _thisOrEmptyIfNull(dynamic field) {
     if (field == null || !(field is String)) return "";
     return field;
@@ -60,7 +58,6 @@ class MiniaturePaintsBloc implements Bloc {
 
   @override
   void dispose() {
-    print("_controller.close()");
     _controller.close();
   }
 }

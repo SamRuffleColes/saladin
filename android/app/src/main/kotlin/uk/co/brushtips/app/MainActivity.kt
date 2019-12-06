@@ -1,4 +1,4 @@
-package es.rufflecol.saladin
+package uk.co.brushtips.app
 
 import android.os.Bundle
 

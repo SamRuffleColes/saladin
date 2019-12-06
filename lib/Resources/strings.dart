@@ -1,5 +1,5 @@
 class Strings {
-  static const String appTitle = "Saladin";
+  static const String appTitle = "Brush Tips";
 
   //signin and registration
   static const String googleSignIn = "Sign-in with Google";
@@ -12,16 +12,16 @@ class Strings {
 
   //about screen
   static const String aboutBody = "This app was built using the finest hand-knitted computer code, by Sam and Lara Ruffle Coles.\n\nFeedback welcomed.";
-  static const String feedbackEmailAddress = "feedback@rufflecol.es";
+  static const String feedbackEmailAddress = "feedback@brushtips.co.uk";
   static const String openSourceLicences = "Open Source Licence Information";
 
   //guides screen
-  static const String guidesScreenTitle = "Guides Screen";
+  static const String guidesScreenTitle = appTitle;
   static const String createNewGuide = "New Guide";
 
   //edit guide screen
-  static const String editGuideScreenTitle = "Edit Guide";
-  static const String nameLabel = "name";
+  static const String editGuideScreenTitle = "Guide";
+  static const String nameLabel = "Name";
   static const String nameValidationError = "Name field cannot be empty";
   static const String uploadingGuide = "Your guide is now uploading...";
   static const String errorUploadingGuide = "Something went wrong, please try again.";
@@ -33,8 +33,9 @@ class Strings {
       "Are you sure you want to delete this guide? This action can not be undone.";
 
   //edit step screen
-  static const String editStepScreenTitle = "Edit Step";
+  static const String editStepScreenTitle = "Step";
   static const String verbLabel = "Verb";
+  static const String paintLabel = "Paint";
   static const String notesLabel = "Notes";
   static const String verbValidationError = "Verb field cannot be empty";
   static const List<String> stepVerbs = [

@@ -68,6 +68,7 @@ class EditGuideState extends State<EditGuideScreen> {
                           decoration: InputDecoration(
                               labelText: Strings.nameLabel, contentPadding: EdgeInsets.all(Dimensions.standardPadding)),
                           validator: (value) => value.isEmpty ? Strings.nameValidationError : null,
+                          maxLength: 64,
                           onSaved: (String value) => _guide.name = value),
                       imageSelection: Container(
                           padding: const EdgeInsets.all(Dimensions.largePadding),
@@ -175,9 +176,11 @@ class EditGuideState extends State<EditGuideScreen> {
     }
 
     if (_guide.image.url.isNotEmpty) {
+      double imageHeight = MediaQuery.of(context).size.height / 3;
       return GestureDetector(
         onTap: _selectImage,
         child: CachedNetworkImage(
+            height: imageHeight,
             imageUrl: _guide.image.url,
             fit: BoxFit.cover,
             placeholder: (context, url) =>

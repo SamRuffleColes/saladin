@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:saladin/Auth/auth.dart';
+import 'package:saladin/Resources/app_palette.dart';
 import 'package:saladin/Resources/dimensions.dart';
 import 'package:saladin/Resources/strings.dart';
 import 'package:saladin/UI/Screen/guides_screen.dart';
@@ -28,8 +30,12 @@ class SplashScreenState extends State<SplashScreen> {
           width: double.infinity),
       Container(
           alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.all(Dimensions.largePadding),
-          child: RaisedButton(child: Text(Strings.googleSignIn), onPressed: () => _googleSignIn()))
+          padding: EdgeInsets.only(top: Dimensions.extraLargeSpacing, bottom: Dimensions.mediumSpacing),
+          child: Column(children: [
+            Text(Strings.appTitle, style: TextStyle(fontSize: 60.0, color: AppPalette.primary, decoration: TextDecoration.none, fontFamily: "Alfa Slab One")),
+            Expanded(child: Container()),
+            SignInButton(Buttons.Google, onPressed: _googleSignIn)
+          ]))
     ]);
   }
 

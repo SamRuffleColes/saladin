@@ -6,7 +6,7 @@ launchFeedbackEmail() async {
 }
 
 launchOpenSourceLicences() async {
-  _launch("http://brushtips.uk.co.uk");
+  _launch("http://brushtips.co.uk");
 }
 
 _launch(String url) async {

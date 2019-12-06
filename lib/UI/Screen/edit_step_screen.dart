@@ -30,17 +30,19 @@ class EditStepState extends State<EditStepScreen> {
               child: Form(
                   key: _formKey,
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Container(child: Text("Verb"), padding: const EdgeInsets.only(left: Dimensions.standardPadding)),
+                    Container(
+                        child: Text(Strings.verbLabel),
+                        padding: const EdgeInsets.only(left: Dimensions.standardPadding)),
                     verbSelectionWidget,
                     Container(
-                        child: Text("Paint"),
+                        child: Text(Strings.paintLabel),
                         padding: const EdgeInsets.only(top: Dimensions.largePadding, left: Dimensions.standardPadding)),
                     Container(
                       padding: const EdgeInsets.only(top: Dimensions.largePadding, bottom: Dimensions.largePadding),
                       child: Row(children: [
                         Expanded(
-                            child: Card(
-                                color: _miniaturePaint == null ? Colors.white : _miniaturePaint.color,
+                            child: Container(
+                                decoration: _buildDecorationForMiniaturePaint(_miniaturePaint),
                                 child: Container(
                                     height: Dimensions.buttonHeight,
                                     padding: const EdgeInsets.all(Dimensions.standardPadding),
@@ -74,6 +76,17 @@ class EditStepState extends State<EditStepScreen> {
                         onSaved: (String value) => _notes = value)
                   ]))),
         ));
+  }
+
+  Decoration _buildDecorationForMiniaturePaint(MiniaturePaint miniaturePaint) {
+    if (miniaturePaint?.gradient != null) {
+      return BoxDecoration(gradient: miniaturePaint.gradient);
+    }
+    if (miniaturePaint?.color != null) {
+      return BoxDecoration(color: miniaturePaint.color);
+    }
+
+    return BoxDecoration(color: Colors.white);
   }
 
   _selectPaint() async => _miniaturePaint = await Navigator.of(context)

@@ -95,14 +95,17 @@ class GuidesListState extends State<GuidesListWidget> {
             footer: GridTileBar(
               backgroundColor: Colors.black45,
               title: Text(guide.name),
-              subtitle: Text("nice mini is nice"),
             ),
-            child: CachedNetworkImage(
-              imageUrl: guide.image.url,
-              fit: BoxFit.fill,
-              placeholder: (context, url) =>
-                  Container(child: CircularProgressIndicator(), padding: const EdgeInsets.all(Dimensions.largePadding)),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+            child: Container(
+              color: Colors.white,
+              constraints: BoxConstraints.expand(),
+              child: CachedNetworkImage(
+                imageUrl: guide.image.url,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Container(child: CircularProgressIndicator(), padding: const EdgeInsets.all(Dimensions.largePadding)),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             )),
         onTap: () =>
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditGuideScreen(guide: guide))));

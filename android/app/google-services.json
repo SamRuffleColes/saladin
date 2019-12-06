@@ -49,6 +49,50 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677203652155:android:7648a3c2e56f80c68b361e",
+        "android_client_info": {
+          "package_name": "uk.co.brushtips.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677203652155-2o8e4j0ipesefv3olt2poaar30329a6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.co.brushtips.app",
+            "certificate_hash": "aa06cf4099c463008bd409a2528c5c0f4d309035"
+          }
+        },
+        {
+          "client_id": "677203652155-9cjnij87o8tufkpm8vgp3e4dq90l6ail.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRsdNVHkem-xNUQiYUz0VcQydXy0mTM98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677203652155-9cjnij87o8tufkpm8vgp3e4dq90l6ail.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "677203652155-4osdissel0cklju90kjvml7vt8q1793o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "es.rufflecol.saladin"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

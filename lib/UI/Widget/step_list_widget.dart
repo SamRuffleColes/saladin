@@ -49,7 +49,7 @@ class StepListState extends State<StepListWidget> {
   Widget _leadingItem(GuideStep step) {
     if (step.miniaturePaint?.color != null) {
       return Container(color: step.miniaturePaint.color, width: 25.0, height: 25.0);
-    } else if (step.miniaturePaint.gradient != null) {
+    } else if (step.miniaturePaint?.gradient != null) {
       return Container(decoration: BoxDecoration(gradient: step.miniaturePaint.gradient), width: 25.0, height: 25.0);
     } else {
       return Icon(Icons.drag_handle);

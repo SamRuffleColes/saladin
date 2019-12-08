@@ -20,7 +20,7 @@ if (System.getenv('APPCENTER_BUILD_ID') != null) {
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '0.1'
 }
 
 apply plugin: 'com.android.application'
@@ -51,9 +51,8 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            debuggable false
         }
         debug {
             signingConfig signingConfigs.debug
@@ -69,8 +68,6 @@ android {
             keyAlias 'saladin'
             keyPassword 'saladindebug'
         }
-
-        //TODO add release signing config
     }
 }
 

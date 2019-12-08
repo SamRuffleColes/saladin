@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:saladin/Resources/app_palette.dart';
 import 'package:saladin/Resources/strings.dart';
 
 import 'UI/Screen/splash_screen.dart';
@@ -26,6 +27,7 @@ class SaladinApp extends StatelessWidget {
         title: Strings.appTitle,
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          primaryColor: AppPalette.primary
         ),
         home: SplashScreen(),
         navigatorObservers: [analyticsObserver]);

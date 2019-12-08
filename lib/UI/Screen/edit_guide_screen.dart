@@ -170,13 +170,15 @@ class EditGuideState extends State<EditGuideScreen> {
   }
 
   Widget _buildImageSelection() {
+    double imageHeight = MediaQuery.of(context).size.height / 3;
+
     if (_image != null) {
       return GestureDetector(
-          onTap: _selectImage, child: Image.file(_image, alignment: Alignment.center, fit: BoxFit.fitWidth));
+          onTap: _selectImage,
+          child: Image.file(_image, height: imageHeight, alignment: Alignment.center, fit: BoxFit.fitWidth));
     }
 
     if (_guide.image.url.isNotEmpty) {
-      double imageHeight = MediaQuery.of(context).size.height / 3;
       return GestureDetector(
         onTap: _selectImage,
         child: CachedNetworkImage(

@@ -16,6 +16,12 @@ class AboutScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              FutureBuilder(
+                  future: Strings.getVersionNumber(),
+                  builder: (context, snapshot) => Container(
+                      padding: EdgeInsets.only(bottom: Dimensions.smallSpacing),
+                      child: Text(snapshot.hasData ? snapshot.data : Strings.loadingVersion,
+                          textAlign: TextAlign.center))),
               Container(
                   padding: EdgeInsets.only(bottom: Dimensions.largeSpacing),
                   child: Text(Strings.aboutBody, textAlign: TextAlign.center)),

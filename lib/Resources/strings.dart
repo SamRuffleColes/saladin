@@ -1,3 +1,5 @@
+import 'package:package_info/package_info.dart';
+
 class Strings {
   static const String appTitle = "Brush Tips";
 
@@ -11,13 +13,19 @@ class Strings {
   static const String signOut = "Sign Out";
 
   //about screen
-  static const String aboutBody = "This app was built using the finest hand-knitted computer code, by Sam and Lara Ruffle Coles.\n\nFeedback welcomed.";
+  static const String aboutBody =
+      "This app was built using the finest hand-knitted computer code, by Sam and Lara Ruffle Coles.\n\nFeedback welcomed.";
   static const String feedbackEmailAddress = "feedback@brushtips.co.uk";
   static const String openSourceLicences = "Open Source Licence Information";
+  static const String loadingVersion = "Loading version...";
+  static Future<String> getVersionNumber() async {
+    PackageInfo info = await PackageInfo.fromPlatform();
+    return "${info.appName} : Build ${info.buildNumber} : v${info.version}";
+  }
 
   //guides screen
   static const String guidesScreenTitle = appTitle;
-  static const String createNewGuide = "New Guide";
+  static const String createNewGuide = "Add Guide";
 
   //edit guide screen
   static const String editGuideScreenTitle = "Guide";

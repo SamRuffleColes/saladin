@@ -49,9 +49,21 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+
+        }
+        debug {
+            storeFile file("../stgdebug.keystore")
+            storePassword 'saladindebug'
+            keyAlias 'saladin'
+            keyPassword 'saladindebug'
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             debuggable false
         }
         debug {
@@ -61,14 +73,6 @@ android {
         }
     }
 
-    signingConfigs {
-        debug {
-            storeFile file("../stgdebug.keystore")
-            storePassword 'saladindebug'
-            keyAlias 'saladin'
-            keyPassword 'saladindebug'
-        }
-    }
 }
 
 flutter {
